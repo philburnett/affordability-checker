@@ -1,0 +1,20 @@
+{
+  "name": "philburnett/affordability-checker",
+  "description": "Affordability Checker Library",
+  "authors": [
+    {
+      "name": "Phil Burnett",
+      "email": "philburnett@gmail.com"
+    }
+  ],
+  "require-dev": {
+    "phpunit/phpunit": "^7.3",
+    "mockery/mockery": "^1.1"
+  },
+  "autoload": {
+    "psr-4": {
+      "AffordabilityChecker\\": "src/",
+      "UnitTest\\AffordabilityChecker\\": "tests/AffordabilityChecker/"
+    }
+  }
+}
