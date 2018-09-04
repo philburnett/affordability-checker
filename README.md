@@ -29,5 +29,6 @@ php csv-affordability-report-generator.php
 ```
 
 ## Notes
- - Lack of validation of data extracted from CSV's
- - Partial models, on the data specifically required for the task is extracted
+ - Lack of validation of data extracted from CSV's.
+ - Partial models, on the data specifically required for the task is extracted.
+ - Not taking into account type of expenses, all outgoings are summed.
