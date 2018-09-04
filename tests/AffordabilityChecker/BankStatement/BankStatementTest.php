@@ -3,30 +3,72 @@
 namespace UnitTest\AffordabilityChecker\BankStatementTest;
 
 use AffordabilityChecker\BankStatement\BankStatement;
-use DateTime;
+use AffordabilityChecker\BankStatement\StatementEntry;
+use Mockery;
 use Mockery\Adapter\Phpunit\MockeryTestCase;
 
 class BankStatementTest extends MockeryTestCase
 {
     public function testConstructorsAndGetters()
     {
-        $start = DateTime::createFromFormat('U', '1533081600');
-        $end   = DateTime::createFromFormat('U', '1535760000');
+        $bankStatement = new BankStatement([
+            Mockery::mock(StatementEntry::class),
+            Mockery::mock(StatementEntry::class),
+            Mockery::mock(StatementEntry::class),
+            Mockery::mock(StatementEntry::class),
+            Mockery::mock(StatementEntry::class),
+        ]);
 
-        $bankStatement = new BankStatement(
-            'testbank',
-            'testname',
-            'testaddressline1',
-            'testaddressline2',
-            $start,
-            $end
-        );
+        $this->assertEquals(5, count($bankStatement->getEntries()));
+    }
 
-        $this->assertEquals('testbank', $bankStatement->getBankName());
-        $this->assertEquals('testname', $bankStatement->getCustomerName());
-        $this->assertEquals('testaddressline1', $bankStatement->getAddressLine1());
-        $this->assertEquals('testaddressline2', $bankStatement->getAddressLine2());
-        $this->assertEquals(1533081600, $bankStatement->getStart()->format('U'));
-        $this->assertEquals(1535760000, $bankStatement->getEnd()->format('U'));
+    public function testGetIncome()
+    {
+        $bankStatement = $this->getStatement();
+        $this->assertEquals(100, $bankStatement->getIncome());
+    }
+
+    public function testGetExpenses()
+    {
+        $bankStatement = $this->getStatement();
+        $this->assertEquals(150, $bankStatement->getExpenses());
+    }
+
+    private function getStatement()
+    {
+        $mockData = $this->getMockEntries();
+
+        $entries = [];
+        foreach ($mockData as $data) {
+            $mockEntry = \Mockery::mock(StatementEntry::class);
+            $mockEntry->shouldReceive('isCredit')->once()->andReturn($data['isCredit']);
+            $mockEntry->shouldReceive('getAmount')->andReturn($data['amount']);
+
+            $entries[] = $mockEntry;
+        }
+
+        return new BankStatement($entries);
+    }
+
+    private function getMockEntries()
+    {
+        return [
+            [
+                'isCredit' => true,
+                'amount'   => 60,
+            ],
+            [
+                'isCredit' => true,
+                'amount'   => 40,
+            ],
+            [
+                'isCredit' => false,
+                'amount'   => 100,
+            ],
+            [
+                'isCredit' => false,
+                'amount'   => 50,
+            ],
+        ];
     }
 }

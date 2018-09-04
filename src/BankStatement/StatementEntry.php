@@ -7,24 +7,9 @@ use DateTime;
 class StatementEntry
 {
     /**
-     * @var DateTime
-     */
-    private $date;
-
-    /**
      * @var float
      */
     private $amount;
-
-    /**
-     * @var float
-     */
-    private $balance;
-
-    /**
-     * @var string
-     */
-    private $description;
 
     /**
      * @var boolean|bool
@@ -34,32 +19,15 @@ class StatementEntry
     /**
      * StatementEntry constructor.
      *
-     * @param DateTime $date
-     * @param float    $amount
-     * @param float    $balance
-     * @param string   $description
-     * @param boolean  $isCredit
+     * @param float   $amount
+     * @param boolean $isCredit
      */
     public function __construct(
-        DateTime $date,
         float $amount,
-        float $balance,
-        string $description,
         bool $isCredit
     ) {
-        $this->date = $date;
-        $this->amount = $amount;
-        $this->balance = $balance;
-        $this->description = $description;
+        $this->amount   = $amount;
         $this->isCredit = $isCredit;
-    }
-
-    /**
-     * @return DateTime
-     */
-    public function getDate(): DateTime
-    {
-        return $this->date;
     }
 
     /**
@@ -68,22 +36,6 @@ class StatementEntry
     public function getAmount(): float
     {
         return $this->amount;
-    }
-
-    /**
-     * @return float
-     */
-    public function getBalance(): float
-    {
-        return $this->balance;
-    }
-
-    /**
-     * @return string
-     */
-    public function getDescription(): string
-    {
-        return $this->description;
     }
 
     /**
