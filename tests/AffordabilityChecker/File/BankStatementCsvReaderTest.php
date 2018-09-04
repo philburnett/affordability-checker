@@ -14,6 +14,7 @@ class BankStatementCsvReaderTest extends MockeryTestCase
         $statement = $reader->getStatement();
 
         $this->assertInstanceOf(BankStatement::class, $statement);
+        $this->assertEquals(65, count($statement->getEntries()));
     }
 
 }

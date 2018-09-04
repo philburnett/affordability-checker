@@ -22,7 +22,7 @@ class Property
      */
     public function __construct(Address $address, int $pricePcm)
     {
-        $this->address = $address;
+        $this->address  = $address;
         $this->pricePcm = $pricePcm;
     }
 

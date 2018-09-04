@@ -4,7 +4,11 @@ namespace AffordabilityChecker\Property;
 
 class PropertyFactory
 {
-    public function createFromCvsLine($csvLine)
+    /**
+     * @param $csvLine
+     * @return Property
+     */
+    public function createFromCvsLine($csvLine): Property
     {
         [$addressLine1, $postcode] = explode(', ', $csvLine[1]);
 
